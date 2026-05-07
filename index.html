@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no" />
+<meta name="theme-color" content="#15082b" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Solomon" />
+<link rel="manifest" href="manifest.webmanifest" />
+<link rel="apple-touch-icon" href="icon-192.png" />
+<title>Solomon Dominion · HQ</title>
+<style>
+  :root {
+    --bg-0: #15082b;
+    --bg-1: #1f0e3d;
+    --bg-2: #2c1453;
+    --bg-3: #3a1d6b;
+    --gold: #f5b740;
+    --gold-deep: #d4a017;
+    --gold-soft: #f5b74033;
+    --purple: #a78bfa;
+    --purple-glow: #8b5cf6;
+    --text: #f4ecff;
+    --muted: #b4a0d4;
+    --green: #4ade80;
+    --red: #f87171;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    background: var(--bg-0);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  body {
+    min-height: 100vh;
+    background:
+      radial-gradient(circle at 80% -10%, rgba(167,139,250,0.18) 0%, transparent 50%),
+      radial-gradient(circle at -10% 110%, rgba(139,92,246,0.12) 0%, transparent 60%),
+      var(--bg-0);
+    padding-bottom: 100px;
+  }
+  .topbar {
+    position: sticky; top: 0;
+    background: linear-gradient(180deg, rgba(21,8,43,0.96) 0%, rgba(21,8,43,0.85) 100%);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    padding: max(env(safe-area-inset-top), 14px) 18px 12px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--bg-2);
+    z-index: 10;
+  }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark {
+    width: 32px; height: 32px;
+    background: var(--gold);
+    border-radius: 8px;
+    display: grid; place-items: center;
+    font-size: 18px; color: var(--bg-0);
+    box-shadow: 0 4px 14px var(--gold-soft);
+  }
+  .brand-name { display: flex; flex-direction: column; line-height: 1.1; }
+  .brand-name b { font-size: 13px; letter-spacing: 0.02em; }
+  .brand-name span { font-size: 10px; color: var(--muted); letter-spacing: 0.18em; text-transform: uppercase; }
+  .topbar-actions { display: flex; gap: 12px; align-items: center; }
+  .pulse {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 10px var(--green);
+    animation: pulse 2.6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+  .stage-pill {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold); background: var(--gold-soft);
+    padding: 4px 8px; border-radius: 999px;
+  }
+  .hero { padding: 28px 20px 20px; text-align: center; }
+  .orb-wrap { position: relative; display: grid; place-items: center; margin-bottom: 18px; }
+  .orb {
+    width: 168px; height: 168px;
+    border-radius: 50%;
+    background:
+      radial-gradient(circle at 30% 30%, #d8b4fe 0%, transparent 55%),
+      conic-gradient(from 210deg, #6d28d9, #a78bfa, #f5b740, #6d28d9);
+    box-shadow:
+      0 0 60px rgba(167,139,250,0.55),
+      0 0 28px rgba(245,183,64,0.35),
+      inset 0 0 40px rgba(255,255,255,0.08);
+    position: relative;
+    animation: spin 30s linear infinite;
+  }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  .orb::after {
+    content: ""; position: absolute; inset: 0; border-radius: 50%;
+    background: radial-gradient(circle at 70% 80%, transparent 50%, rgba(11,16,32,0.4) 100%);
+  }
+  .hero-title { font-size: 22px; font-weight: 700; margin-top: 6px; letter-spacing: -0.01em; }
+  .hero-sub { font-size: 13px; color: var(--muted); margin-top: 6px; line-height: 1.45; }
+
+  /* Cortana widget zone — ElevenLabs renders here */
+  .cortana-zone {
+    margin: 24px 16px;
+    padding: 16px;
+    background: var(--bg-1);
+    border: 1px solid var(--bg-2);
+    border-radius: 14px;
+    min-height: 140px;
+    position: relative;
+  }
+  .cortana-label {
+    font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+  }
+
+  .section-h {
+    font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--muted); padding: 18px 20px 8px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .section-h .meta { font-size: 10px; color: var(--muted); text-transform: none; letter-spacing: 0; }
+  .card {
+    margin: 0 16px 12px;
+    background: var(--bg-1);
+    border: 1px solid var(--bg-2);
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .card-row { display: flex; align-items: center; justify-content: space-between; }
+  .card-eyebrow {
+    font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
+  }
+  .card-title { font-size: 16px; font-weight: 600; margin-top: 6px; line-height: 1.3; }
+  .card-body { font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+  .health-dot {
+    display: inline-block; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 8px var(--green);
+    margin-right: 6px; vertical-align: 1px;
+  }
+
+  .bottom-nav {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--bg-1);
+    border-top: 1px solid var(--bg-2);
+    padding: 8px 0 max(env(safe-area-inset-bottom), 14px);
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    z-index: 20;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .bottom-nav-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    padding: 6px;
+    color: var(--muted); font-size: 10px; letter-spacing: 0.04em;
+    text-decoration: none;
+    background: none; border: 0;
+  }
+  .bottom-nav-item.active { color: var(--gold); }
+  .bottom-nav-item .nav-icon { font-size: 20px; width: 24px; height: 24px; display: grid; place-items: center; }
+  .bottom-nav-item.active .nav-icon { background: var(--gold-soft); border-radius: 8px; }
+
+  /* Override ElevenLabs widget colors where their CSS allows */
+  elevenlabs-convai {
+    --el-color-bg: var(--bg-1);
+    --el-color-fg: var(--text);
+    --el-color-accent: var(--gold);
+  }
+
+  /* Hide content while one section is active; super basic tab routing */
+  .view { display: none; }
+  .view.active { display: block; }
+</style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">♛</div>
+      <div class="brand-name">
+        <b>Solomon Dominion</b>
+        <span>HQ · Mobile</span>
+      </div>
+    </div>
+    <div class="topbar-actions">
+      <span class="stage-pill" id="stage-badge">Toddler · Live</span>
+      <span class="pulse" title="alive"></span>
+    </div>
+  </header>
+
+  <!-- HQ view: hero + Cortana + cards -->
+  <main class="view active" id="view-hq">
+    <section class="hero">
+      <div class="orb-wrap"><div class="orb"></div></div>
+      <h1 class="hero-title">Cortana is listening</h1>
+      <p class="hero-sub">Speak, delegate, approve.<br/>Throne Doctrine + 11 tools live.</p>
+    </section>
+
+    <div class="cortana-zone">
+      <div class="cortana-label">Talk to the Queen</div>
+      <elevenlabs-convai agent-id="agent_7001kqv7bh63e8ns9t7xfczd4264"></elevenlabs-convai>
+    </div>
+
+    <div class="section-h">
+      <span>Today's Pulse</span>
+      <span class="meta" id="pulse-time">—</span>
+    </div>
+
+    <article class="card">
+      <div class="card-row">
+        <div class="card-eyebrow">Sentinel Health</div>
+        <div id="health-status" style="font-size:11px; color:var(--green); font-weight:600;">checking…</div>
+      </div>
+      <h3 class="card-title"><span class="health-dot"></span>Solomon MCP</h3>
+      <p class="card-body" id="health-detail">Probing https://solomon-mcp.onrender.com/health …</p>
+    </article>
+
+    <article class="card">
+      <div class="card-row">
+        <div class="card-eyebrow">Top Proposal · Throne Doctrine</div>
+        <div style="font-size:11px; color:var(--gold); font-weight:600;">#1</div>
+      </div>
+      <h3 class="card-title">Logistics carrier acquisition</h3>
+      <p class="card-body">Strategic acquisition at a discount; immediate ag-belt route coverage.</p>
+    </article>
+
+    <article class="card">
+      <div class="card-row">
+        <div class="card-eyebrow">Bridges of chi</div>
+        <div style="font-size:11px; color:var(--green); font-weight:600;">7/7 GREEN</div>
+      </div>
+      <h3 class="card-title">All seven flowing</h3>
+      <p class="card-body">Input → Memory · Cortana ↔ MCP · Tasks → Inbox · DO! → Memory · UI → Action · Doctrine ↔ Behavior · Probes → QC</p>
+    </article>
+  </main>
+
+  <!-- Cortana view (full chat) -->
+  <main class="view" id="view-cortana">
+    <section style="padding: 28px 20px;">
+      <h1 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Cortana · Full</h1>
+      <p style="color: var(--muted); font-size: 13px; margin-bottom: 24px;">Long-form conversation with the Queen.</p>
+      <div class="cortana-zone" style="min-height: 60vh;">
+        <elevenlabs-convai agent-id="agent_7001kqv7bh63e8ns9t7xfczd4264"></elevenlabs-convai>
+      </div>
+    </section>
+  </main>
+
+  <main class="view" id="view-briefs">
+    <section style="padding: 28px 20px;">
+      <h1 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Briefs</h1>
+      <p style="color: var(--muted); font-size: 13px;">Council briefings, evening sovereign briefs, weekly strategic synthesis. (Coming soon — wired via MCP.)</p>
+    </section>
+  </main>
+
+  <main class="view" id="view-vault">
+    <section style="padding: 28px 20px;">
+      <h1 style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Vault</h1>
+      <p style="color: var(--muted); font-size: 13px;">Memory + doctrine. (Coming soon — wired via MCP queryVault.)</p>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="bottom-nav-item active" data-view="hq"><span class="nav-icon">♛</span><span>HQ</span></button>
+    <button class="bottom-nav-item" data-view="cortana"><span class="nav-icon">🔮</span><span>Cortana</span></button>
+    <button class="bottom-nav-item" data-view="briefs"><span class="nav-icon">🗒️</span><span>Briefs</span></button>
+    <button class="bottom-nav-item" data-view="vault"><span class="nav-icon">⚙</span><span>Vault</span></button>
+  </nav>
+
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+  <script>
+    // Tab routing
+    document.querySelectorAll('.bottom-nav-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const view = btn.dataset.view;
+        document.querySelectorAll('.bottom-nav-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById('view-' + view).classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+      });
+    });
+
+    // Pulse time
+    function updatePulseTime() {
+      const d = new Date();
+      const t = d.toLocaleTimeString('en-US', {hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'America/Chicago'});
+      document.getElementById('pulse-time').textContent = t + ' CT';
+    }
+    updatePulseTime();
+    setInterval(updatePulseTime, 60000);
+
+    // Health probe (CORS-permitting; if blocked, shows offline)
+    fetch('https://solomon-mcp.onrender.com/health')
+      .then(r => r.json())
+      .then(d => {
+        document.getElementById('health-status').textContent = 'GREEN · ' + d.tools.length + ' TOOLS';
+        document.getElementById('health-detail').textContent = d.service + ' v' + d.version + ' · status ' + d.status + ' · ' + d.tools.length + ' tools alive';
+      })
+      .catch(e => {
+        document.getElementById('health-status').textContent = 'WAKING';
+        document.getElementById('health-detail').textContent = 'Free tier spins down. Tap to wake (~50 sec cold start).';
+      });
+
+    // PWA install hint
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    }
+  </script>
+</body>
+</html>
